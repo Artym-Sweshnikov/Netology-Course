@@ -1,7 +1,6 @@
 class Animal:
     species = 'unknown'
     scream = 'unknown'
-    weight = 'unknown'
 
     # конструктор
     def __init__(self, name, weight):
