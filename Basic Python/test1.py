@@ -1,10 +1,8 @@
-m = int(input())
-n = int(input())
-while m != n:
-    s = m * n
-    if s // m == n and s // n == m:
-        break
-print(s)
+file = open("recipes.txt")
+onstring = file.read().split("\n")[:-1]
+print(onstring)
+print(onstring[3])
+for i in onstring:
+    print(i)
 
-
-
+file.close()
