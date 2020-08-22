@@ -6,12 +6,11 @@ def create_dict_from_file(file_name):
             counter = int(file_work.readline())
             list_of_ingredient = []
             for i in range(counter):
-                temp_dict = {file_work.readline()}
-                x = {'ingredient': temp_dict}
-                list_of_ingredient.append(x)
+                set_of_product = file_work.readline().split('|')
+                temp_dict = dict(zip(['ingredient_name', 'quantity', 'measure'], set_of_product))
+                list_of_ingredient.append(temp_dict)
             cook_dict[dish_name] = list_of_ingredient
             file_work.readline()
-    print(cook_dict)
     return cook_dict
 
 
