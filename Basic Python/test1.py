@@ -1,17 +1,19 @@
-def create_dict_from_file(file_name):
-    cook_dict = {}
-    with open(file_name, encoding='utf8') as file_work:
-        for line in file_work:
-            dish_name = line.strip()
-            counter = int(file_work.readline())
-            list_of_ingredient = []
-            for i in range(counter):
-                set_of_product = file_work.readline().split('|')
-                temp_dict = dict(zip(['ingredient_name', 'quantity', 'measure'], set_of_product))
-                list_of_ingredient.append(temp_dict)
-            cook_dict[dish_name] = list_of_ingredient
-            file_work.readline()
-    return cook_dict
+import netology7_1
+
+def get_shop_list_by_dishes(dishes, person_count):
+    cook_book = netology7_1.create_dict_from_file("recipes.txt")
+    # amount_product = cook_book['quantiy'] * person_count
+    list_of_ingredients = []
+    list_of_quantity = []
+    list_of_last_quantity = []
+    list_measure = []
+
+    for product_of_dish in dishes:
+        our_list = cook_book
+        print(our_list)
+        for values in our_list.values():
+            print(values)
 
 
-create_dict_from_file("recipes.txt")
+
+get_shop_list_by_dishes(['Омлет', 'Запеченный картофель'], 4)
