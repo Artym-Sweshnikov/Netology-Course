@@ -1,4 +1,7 @@
 def create_dict_from_file(file_name):
+    '''Создает словарь блюд из текстового файла.
+
+    Новый словарь можно дополнить необходимыми блюдами.'''
     cook_dict = {}
     with open(file_name, encoding='utf8') as file_work:
         for line in file_work:

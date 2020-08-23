@@ -2,6 +2,9 @@ import netology7_1
 
 
 def get_shop_list_by_dishes(dishes, person_count):
+    '''Функция состовляет список продуктов, необходимых для приготовления блюда.
+
+    Пользователь выбирает блюда и передает количество человек в аргумент функции.'''
     cook_book = netology7_1.create_dict_from_file("recipes.txt")
     list_of_ingredients = []
     list_of_quantity = []
