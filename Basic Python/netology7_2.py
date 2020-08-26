@@ -6,35 +6,20 @@ def get_shop_list_by_dishes(dishes, person_count):
 
     Пользователь выбирает блюда и передает количество человек в аргумент функции.'''
     cook_book = netology7_1.create_dict_from_file("recipes.txt")
-    list_of_ingredients = []
-    list_of_quantity = []
-    list_of_last_quantity = []
-    list_measure = []
+    new_dict = {}
+    for dish in dishes:
+        if dish not in cook_book:
+            continue
+        for ingredient in cook_book[dish]:
+            curr_ingredient = ingredient.copy()
+            curr_ingredient['quantity'] = int(curr_ingredient['quantity'])
+            curr_ingredient['quantity'] *= person_count
+            if curr_ingredient['ingredient_name'] in new_dict:
+                new_dict[curr_ingredient['ingredient_name']]['quantity'] += curr_ingredient['quantity']
+            else:
+                new_dict[curr_ingredient.pop('ingredient_name')] = curr_ingredient
 
-    if len(dishes) == len(set(dishes)):
-        for product_of_dish in dishes:
-            print(product_of_dish)
-            our_list = cook_book[product_of_dish]
-            for key in our_list:
-                list_of_ingredients.append(key['ingredient_name'])
-                list_of_quantity.append(key['quantity'])
-                list_measure.append(key['measure'])
-            for amount_of_person in list_of_quantity:
-                list_of_last_quantity.append(int(amount_of_person) * person_count)
-        for ingredients, measure, quantity in zip(list_of_ingredients, list_measure, list_of_last_quantity):
-            dict_of_necessary_ingredients = dict.fromkeys([ingredients], dict(measure=measure, quantity=quantity))
-            print(dict_of_necessary_ingredients)
-    else:
-        our_list = cook_book[dishes[0]]
-        for key in our_list:
-            list_of_ingredients.append(key['ingredient_name'])
-            list_of_quantity.append(key['quantity'])
-            list_measure.append(key['measure'])
-        for amount_of_person in list_of_quantity:
-            list_of_last_quantity.append(int(amount_of_person) * person_count * len(dishes))
-        for ingredients, measure, quantity in zip(list_of_ingredients, list_measure, list_of_last_quantity):
-            dict_of_necessary_ingredients = dict.fromkeys([ingredients], dict(measure=measure, quantity=quantity))
-            print(dict_of_necessary_ingredients)
+    print(new_dict)
 
 
 get_shop_list_by_dishes(['Омлет', 'Омлет'], 1)

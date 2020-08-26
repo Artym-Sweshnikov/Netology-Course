@@ -23,23 +23,19 @@ def get_shop_list_by_dishes(dishes, person_count):
 
     Пользователь выбирает блюда и передает количество человек в аргумент функции.'''
     new_dict = {}
-    list_of_ingredients = []
-    list_of_quantity = []
-    list_of_last_quantity = []
-    list_measure = []
     for dish in dishes:
         if dish in cook_book:
             recipe = cook_book[dish]
-            for j in recipe:
-                list_of_ingredients.append(j['ingredient_name'])
-                list_of_quantity.append(j['quantity'])
-                list_measure.append(j['measure'])
-            for amount_of_person in list_of_quantity:
-                list_of_last_quantity.append(int(amount_of_person) * person_count)
-            for ingredients, measure, quantity in zip(list_of_ingredients, list_measure, list_of_last_quantity):
-                dict_of_necessary_ingredients = dict.fromkeys([ingredients], dict(measure=measure, quantity=quantity))
-                print(dict_of_necessary_ingredients)
+            for dict_of_recipe in recipe:
+                amount_of_product = (dict_of_recipe['quantity'] * person_count)
+                dict_of_dish = dict(dish=dish, dict_of_recipe=dict_of_recipe)
+                new_dict = dict.fromkeys([dish], dict(measure=dict_of_recipe['measure'], quantity=dict_of_recipe['quantity']))
+                if dish in dict_of_dish['dish']:
+                    new_dict[dish]['quantity'] = amount_of_product
+                    print(new_dict)
+                else:
+                    new_dict[dish]['quantity'] += dict_of_recipe['quantity']
+                    print(new_dict)
 
 
-
-get_shop_list_by_dishes(['Омлет','Омлет'], 1)
+get_shop_list_by_dishes(['Омлет','Запеченный картофель'], 3)
