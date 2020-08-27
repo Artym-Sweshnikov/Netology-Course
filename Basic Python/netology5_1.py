@@ -10,19 +10,39 @@ directories = {
 }
 
 
+def main_func():
+    if command == 'p':
+        personal_documents()
+    elif command == 's':
+        document_location()
+    elif command == 'l':
+        personal_list_of_worker()
+    elif command == 'a':
+        add_new_data()
+    else:
+        print('Вы ввели неверную команду!')
+
+
 def personal_documents():
-    document_number = input("Введите номер документа: ")
+    document_number = input("Введите полный номер документа: ")
+    document_found = False
     for document in documents:
-        # print(document)
-        if document_number in document['number']:
+        if document_number == document['number']:
+            document_found = True
             print(document['name'])
+    if document_found is False:
+        print('Документ не найден')
 
 
-def document_location():
+def document_location(): # Здесь появляется понятие Флаговая переменная
     document_number = input("Введите номер документа: ")
+    document_found = False
     for key in directories:
         if document_number in directories[key]:
+            document_found = True
             print(key)
+    if document_found is False:
+        print('Документ не найден')
 
 
 def personal_list_of_worker():
@@ -38,20 +58,15 @@ def add_new_data():
     number_of_document = input('Введите номер документа: ')
     name_of_owner = input('Введите имя владельца: ')
     number_of_shelf = input('Введите номер полки: ')
-    documents.append({'type': type_of_document, "number": number_of_document, "name": name_of_owner})
-    print(documents)
-    directories[number_of_shelf].append(number_of_document)
-    print(directories)
+    if int(number_of_shelf) > 3:
+        print('Такой полки нет, введите существующую!')
+        add_new_data()
+    else:
+        documents.append({'type': type_of_document, "number": number_of_document, "name": name_of_owner})
+        directories[number_of_shelf].append(number_of_document)
+        print('Новые данные успешно добавлены!')
 
 
+print('ВНИМАНИЕ!!!\nПри вводе данных будьте бдительны!')
 command = input('Введите команду: ')
-if command == 'p':
-    personal_documents()
-elif command == 's':
-    document_location()
-elif command == 'l':
-    personal_list_of_worker()
-elif command == 'a':
-    add_new_data()
-else:
-    print('ВНИМАНИЕ!!!\nВы ввели неверную команду')
+main_func()
